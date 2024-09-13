@@ -58,7 +58,7 @@ public:
 	virtual ~NetworkWithInputEncoding() { }
 
 	void inference_mixed_precision_impl(cudaStream_t stream, const GPUMatrixDynamic<float>& input, GPUMatrixDynamic<T>& output, bool use_inference_params = true) override {
-		GPUMatrixDynamic<T> network_input = {m_encoding->padded_output_width(), input.n(), stream, m_encoding->preferred_output_layout()};
+		static GPUMatrixDynamic<T> network_input = {m_encoding->padded_output_width(), input.n(), stream, m_encoding->preferred_output_layout()};
 		m_encoding->inference_mixed_precision(stream, input, network_input, use_inference_params);
 		m_network->inference_mixed_precision(stream, network_input, output, use_inference_params);
 	}

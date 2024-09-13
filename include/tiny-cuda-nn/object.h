@@ -157,13 +157,15 @@ public:
 				CHECK_THROW(this->params() != nullptr);
 			}
 		}
-
+		/*
 		GPUMatrixDynamic<COMPUTE_T> inference_output_tmp;
 		if (std::is_same<COMPUTE_T, float>::value && padded_output_width() == output_width()) {
 			inference_output_tmp = GPUMatrixDynamic<COMPUTE_T>{(COMPUTE_T*)output.data(), output.m(), output.n(), output.layout()};
 		} else {
 			inference_output_tmp = GPUMatrixDynamic<COMPUTE_T>{padded_output_width(), output.n(), stream, output.layout()};
 		}
+		*/
+		static GPUMatrixDynamic<COMPUTE_T> inference_output_tmp = GPUMatrixDynamic<COMPUTE_T>{ padded_output_width(), output.n(), stream, output.layout() };
 
 		inference_mixed_precision(stream, input, inference_output_tmp, use_inference_params);
 
