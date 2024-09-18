@@ -60,6 +60,8 @@ public:
 		throw std::runtime_error{"Encoding does not support nesting."};
 	}
 
+	virtual void cleanup_after_training() { }
+
 	// By default, an encoding has no parameters
 	void set_params_impl(T* params, T* inference_params, T* gradients) override { }
 	void initialize_params(pcg32& rnd, float* params_full_precision, float scale = 1) override { }
