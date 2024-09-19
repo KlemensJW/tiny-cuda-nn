@@ -60,6 +60,7 @@ public:
 		throw std::runtime_error{"Encoding does not support nesting."};
 	}
 
+	// clean up resources needed for training when not needed anymore
 	virtual void cleanup_after_training() { }
 
 	// By default, an encoding has no parameters
