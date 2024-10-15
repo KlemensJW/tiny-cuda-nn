@@ -42,3 +42,23 @@ float* load_stbi(int* width, int* height, const char* filename) {
 	}
 	return data;
 }
+
+float* load_linear_stbi(int* width, int* height, const char* filename) {
+	int n_channels = 4;
+	unsigned char* data = stbi_load(filename, width, height, &n_channels, n_channels);
+	if (!data) {
+		throw std::runtime_error{ std::string{stbi_failure_reason()} };
+	}
+
+	float* float_data = (float*)malloc((*width) * (*height) * n_channels * sizeof(float));
+
+	for (int i = 0; i < (*width) * (*height) * n_channels; ++i) {
+		float_data[i] = data[i] / 255.0f;
+	}
+
+	// Free the original image data
+	stbi_image_free(data);
+
+
+	return float_data;
+}
